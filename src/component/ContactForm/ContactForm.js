@@ -10,7 +10,9 @@ const ContactForm = (props) => {
     email: "",
   });
   const { phoneNumber, email } = state;
-  const [emailError, setEmailError] = useState('')
+  const [emailErrorStatus, setEmailErrorStatus] = useState(false);
+  const [phoneNumberError, setPhoneNumberError] = useState(false);
+
   const prevRender = () => {
     props.history.push("/address");
   };
@@ -32,18 +34,20 @@ const ContactForm = (props) => {
   }, []);
 
   const nextRender = () => {
-    if ((phoneNumber === null, email === null)) {
-      notification.open({
-        message: "Please read descriptions",
-        description: "- Please Fill All Inputs - please fill the valid email",
-
-        onClick: () => {
-          console.log("Notification Clicked!");
-        },
-      });
-    } else {
-      props.history.push("/hobby");
-    }
+    let reg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (reg.test(email)) {
+      setEmailErrorStatus(false);
+    } 
+      if (email !== "") {
+        setEmailErrorStatus(true);
+      }
+      if (phoneNumber.trim().length < 10) {
+        setPhoneNumberError(true);
+      } else {
+        setPhoneNumberError(false);
+        props.history.push('/hobby')
+      }
+    
 
     console.log(state, "state on button press");
     // props.history.push("/hobby");
@@ -65,10 +69,23 @@ const ContactForm = (props) => {
     return setState({ ...state, [key]: val });
   };
   return (
-    <div style={{ display: "grid", justifyContent: "center", padding: "24px" }}>
-        <h2>
-            Contact From
-            </h2>
+    <div
+      style={{
+        display: "grid",
+        justifyContent: "center",
+        padding: "24px",
+        alignItems: "center",
+        height: "360px",
+        border: "3px solid darkgrey",
+        boxShadow: "10px 5px 5px darkgrey",
+        marginLeft: "36%",
+        marginTop: "100px",
+        borderRadius: "28px",
+        width: "26%",
+        fontFamily: "cursive",
+      }}
+    >
+      <h2 style={{ textDecoration: "underline" }}>Contact From</h2>
       <div>
         <FormData
           label={"Phone_no:"}
@@ -76,17 +93,30 @@ const ContactForm = (props) => {
           value={phoneNumber}
           change={onChangeText("phoneNumber")}
         />
+        {phoneNumberError === true ? (
+          <div style={{color: 'red'}} >* phoneNumber should be minimum 10 characters.</div>
+        ) : null}
         <FormData
           label={"Email:"}
           placeholder={"Email"}
           value={email}
           change={onChangeText("email")}
         />
-
+        {emailErrorStatus === true ? (
+          <div style={{color: 'red'}}>* Please include an '@' in the email address.</div>
+        ) : null}
       </div>
-      <div style={{marginTop: '12px'}}>
-        <ButtonData value={"next"} submit={nextRender} icon={<ArrowRightOutlined />}/>
-        <ButtonData submit={prevRender} value={"previous"} icon={<ArrowLeftOutlined />}/>
+      <div style={{ marginTop: "12px" }}>
+        <ButtonData
+          value={"next"}
+          submit={nextRender}
+          icon={<ArrowRightOutlined />}
+        />
+        <ButtonData
+          submit={prevRender}
+          value={"previous"}
+          icon={<ArrowLeftOutlined />}
+        />
       </div>
     </div>
   );

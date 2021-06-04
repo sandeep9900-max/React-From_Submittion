@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { notification } from "antd";
+import { notification, Radio, Space } from "antd";
 import FormData from "../../utilities/form/FormData";
-import { ArrowRightOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined } from "@ant-design/icons";
 import ButtonData from "../../utilities/ButtonData/ButtonData";
 import { useDispatch, useSelector } from "react-redux";
 import { addName } from "../../redux/actionCreator/ActionCreator";
@@ -10,7 +10,8 @@ const FormDetails = (props) => {
   // const dispatch = useDispatch();
   // const formData = useSelector((state) => state.name);
   // console.log(formData, "dta is>>>");
-
+  const [value, setValue] = React.useState(1);
+  const [phoneNumberError, setPhoneNumberError] = useState(false);
   const [state, setState] = useState({
     name: "",
     age: "",
@@ -46,16 +47,15 @@ const FormDetails = (props) => {
     // props.history.push("/address");
 
     // return;
-    if (name === null && age === null && gender === null) {
-      return notification.open({
-        message: "Please read descriptions",
-        description: "- Please Fill All Inputs - AGE write in numbers",
-
-        onClick: () => {
-          console.log("Notification Clicked!");
-        },
-      });
+    if (name.trim().length < 10) {
+      setPhoneNumberError(true);
     } else {
+      setPhoneNumberError(false);
+    }
+    if (age.trim().length < 2) {
+      setPhoneNumberError(true);
+    } else {
+      setPhoneNumberError(false);
       props.history.push("/address");
     }
     console.log(state, "state on button press");
@@ -69,10 +69,29 @@ const FormDetails = (props) => {
   const onChangeText = (key) => (val) => {
     return setState({ ...state, [key]: val });
   };
+  const onChange = (e) => {
+    console.log("radio checked", e.target.value);
+    setValue(e.target.value);
+  };
 
   return (
-    <div style={{ display: "grid", justifyContent: "center", padding: "24px" }}>
-      <h2>Detailed Form</h2>
+    <div
+      style={{
+        display: "grid",
+        justifyContent: "center",
+        padding: "24px",
+        alignItems: "center",
+        height: "400px",
+        border: "3px solid darkgrey",
+        boxShadow: "10px 5px 5px darkgrey",
+        marginLeft: "36%",
+        marginTop: "100px",
+        borderRadius: "28px",
+        width: "26%",
+        fontFamily: "cursive",
+      }}
+    >
+      <h2 style={{ textDecoration: "underline" }}>Detailed Form</h2>
       <FormData
         placeholder={"Name"}
         render={onFinish}
@@ -80,6 +99,11 @@ const FormDetails = (props) => {
         change={onChangeText("name")}
         label={"Name:"}
       />
+      {phoneNumberError === true ? (
+        <div style={{ color: "red" }}>
+          * Name should be minimum 10 characters.
+        </div>
+      ) : null}
       <FormData
         placeholder={"Age"}
         typeData={"number"}
@@ -88,15 +112,37 @@ const FormDetails = (props) => {
         render={onFinish}
         label={"Age:"}
       />
-      <FormData
+      {phoneNumberError === true ? (
+        <div style={{ color: "red" }}>
+          * Age should be minimum 2 characters.
+        </div>
+      ) : null}
+      {/* <FormData
         placeholder={"Gender"}
         value={gender}
         change={onChangeText("gender")}
         render={onFinish}
         label={"Gender:"}
-      />
+      /> */}
+
+      <Radio.Group
+        onChange={onChange}
+        value={value}
+        style={{ marginTop: "20px" }}
+      >
+        <Space direction="vertical">
+          <Radio value={1}>Male</Radio>
+          <Radio value={2}>Female</Radio>
+          <Radio value={3}>Other</Radio>
+        </Space>
+      </Radio.Group>
+
       <div style={{ marginTop: "12px" }}>
-        <ButtonData value={"Next"} submit={handleClick} icon={<ArrowRightOutlined />}/>
+        <ButtonData
+          value={"Next"}
+          submit={handleClick}
+          icon={<ArrowRightOutlined />}
+        />
       </div>
     </div>
   );

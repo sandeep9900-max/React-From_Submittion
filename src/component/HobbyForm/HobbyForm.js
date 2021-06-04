@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { Select, Result } from "antd";
-import { CheckCircleOutlined } from "@ant-design/icons";
+import { Result, Menu, Dropdown } from "antd";
+import { CheckCircleOutlined, DownOutlined } from "@ant-design/icons";
 import FormData from "../../utilities/form/FormData";
 import ButtonData from "../../utilities/ButtonData/ButtonData";
-
-const { Option } = Select;
 
 const HobbyForm = () => {
   const [isSelected, setIsSelected] = useState(false);
@@ -23,8 +21,6 @@ const HobbyForm = () => {
     setIsSelected(!isSelected);
   };
   const submitFrom = () => {
-    console.log(state, "state on button press");
-
     setShowScore(true);
   };
 
@@ -40,8 +36,36 @@ const HobbyForm = () => {
     return setState({ ...state, [key]: val });
   };
 
+  const menu = (
+    <Menu>
+      <Menu.Item>Developing</Menu.Item>
+      <Menu.Item>Cricket</Menu.Item>
+      <Menu.Item>Football</Menu.Item>
+      <Menu.Item>Gaming</Menu.Item>
+
+      <Menu.Item>
+        {!isSelected ? <a onClick={renderChange}>Others</a> : null}
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
-    <div style={{ display: "grid", justifyContent: "center", padding: "24px" }}>
+    <div
+      style={{
+        display: "grid",
+        justifyContent: "center",
+        padding: "24px",
+        alignItems: "center",
+        height: "321px",
+        border: "3px solid darkgrey",
+        boxShadow: "10px 5px 5px darkgrey",
+        marginLeft: "36%",
+        marginTop: "100px",
+        borderRadius: "28px",
+        width: "26%",
+        fontFamily: "cursive",
+      }}
+    >
       {showScore ? (
         // <h2>Forms Are Submitted</h2>
         <Result
@@ -51,22 +75,20 @@ const HobbyForm = () => {
         />
       ) : (
         <>
-          <h2>Hobby Details</h2>
-          <Select
-            defaultValue="Please Select Your Hobby"
-            style={{ width: 120 }}
-            onChange={handleChange}
-          >
-            <Option value="Cricket">Cricket</Option>
-            <Option value="Football">Football</Option>
-            <Option value="Developing">Developing</Option>
-            <Option value="Singing">Singing</Option>
-            <Option value="dancing">dancing</Option>
-          </Select>
+          <h2 style={{textDecoration: "underline"}}>Hobby Details</h2>
+
+          <Dropdown overlay={menu}>
+            <a
+              className="ant-dropdown-link"
+              onClick={(e) => e.preventDefault()}
+            >
+              Hover me <DownOutlined />
+            </a>
+          </Dropdown>
+
           <div style={{ marginTop: "24px" }}>
             {!isSelected ? (
               <div onClick={renderChange} style={{ cursor: "pointer" }}>
-                Or Others
               </div>
             ) : (
               <FormData
@@ -76,7 +98,11 @@ const HobbyForm = () => {
               />
             )}
             <div style={{ marginTop: "24px" }}>
-              <ButtonData value={"Done"} submit={submitFrom} icon={<CheckCircleOutlined />}/>
+              <ButtonData
+                value={"Done"}
+                submit={submitFrom}
+                icon={<CheckCircleOutlined />}
+              />
             </div>
           </div>
         </>
