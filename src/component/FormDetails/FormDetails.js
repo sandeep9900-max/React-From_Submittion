@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { notification, Radio, Space } from "antd";
-import FormData from "../../utilities/form/FormData";
+import FormComponent from "../../utilities/form/FormComponent";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import ButtonData from "../../utilities/ButtonData/ButtonData";
+import ButtonComponent from "../../utilities/ButtonData/ButtonComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { addName } from "../../redux/actionCreator/ActionCreator";
 
@@ -92,7 +92,7 @@ const FormDetails = (props) => {
       }}
     >
       <h2 style={{ textDecoration: "underline" }}>Detailed Form</h2>
-      <FormData
+      <FormComponent
         placeholder={"Name"}
         render={onFinish}
         value={name}
@@ -104,7 +104,7 @@ const FormDetails = (props) => {
           * Name should be minimum 10 characters.
         </div>
       ) : null}
-      <FormData
+      <FormComponent
         placeholder={"Age"}
         typeData={"number"}
         value={age}
@@ -138,7 +138,7 @@ const FormDetails = (props) => {
       </Radio.Group>
 
       <div style={{ marginTop: "12px" }}>
-        <ButtonData
+        <ButtonComponent
           value={"Next"}
           submit={handleClick}
           icon={<ArrowRightOutlined />}

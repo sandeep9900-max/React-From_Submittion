@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Result, Menu, Dropdown } from "antd";
 import { CheckCircleOutlined, DownOutlined } from "@ant-design/icons";
-import FormData from "../../utilities/form/FormData";
-import ButtonData from "../../utilities/ButtonData/ButtonData";
+import FormComponent from "../../utilities/form/FormComponent";
+import ButtonComponent from "../../utilities/ButtonData/ButtonComponent";
 
 const HobbyForm = () => {
   const [isSelected, setIsSelected] = useState(false);
@@ -91,14 +91,14 @@ const HobbyForm = () => {
               <div onClick={renderChange} style={{ cursor: "pointer" }}>
               </div>
             ) : (
-              <FormData
+              <FormComponent
                 placeholder={"Hobbies.."}
                 value={hobby}
                 change={onChangeText("hobby")}
               />
             )}
             <div style={{ marginTop: "24px" }}>
-              <ButtonData
+              <ButtonComponent
                 value={"Done"}
                 submit={submitFrom}
                 icon={<CheckCircleOutlined />}

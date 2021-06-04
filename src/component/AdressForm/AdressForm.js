@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { notification } from "antd";
-import FormData from "../../utilities/form/FormData";
+import FormComponent from "../../utilities/form/FormComponent";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
-import ButtonData from "../../utilities/ButtonData/ButtonData";
+import ButtonComponent from "../../utilities/ButtonData/ButtonComponent";
 const AdressForm = (props) => {
   const [phoneNumberError, setPhoneNumberError] = useState(false);
 
@@ -76,7 +76,7 @@ const AdressForm = (props) => {
     >
       <h2 style={{ textDecoration: "underline" }}>Address From</h2>
       <div>
-        <FormData
+        <FormComponent
           label={"Primary-Address:"}
           placeholder={"Primary-Address"}
           value={primaryAddress}
@@ -87,7 +87,7 @@ const AdressForm = (props) => {
             * primaryAddress should be minimum 10 characters.
           </div>
         ) : null}
-        <FormData
+        <FormComponent
           label={"Secondary-Address:"}
           placeholder={"Secondary-Address"}
           value={secondaryAddress}
@@ -100,12 +100,12 @@ const AdressForm = (props) => {
         ) : null}
       </div>
       <div style={{ marginTop: "12px" }}>
-        <ButtonData
+        <ButtonComponent
           value={"next"}
           submit={nextRender}
           icon={<ArrowRightOutlined />}
         />
-        <ButtonData
+        <ButtonComponent
           submit={prevRender}
           value={"previous"}
           icon={<ArrowLeftOutlined />}

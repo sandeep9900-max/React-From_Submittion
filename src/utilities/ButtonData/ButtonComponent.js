@@ -7,7 +7,7 @@ const tailLayout = {
     span: 16,
   },
 };
-const ButtonData = (props) => {
+const ButtonComponent = (props) => {
 
   const { value, submit, icon  } = props;
   return (
@@ -26,4 +26,4 @@ const ButtonData = (props) => {
   );
 };
 
-export default ButtonData;
+export default ButtonComponent;

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
-import ButtonData from "../../utilities/ButtonData/ButtonData";
-const FormData = (props) => {
+const FormComponent = (props) => {
   const [internalVal, setInternalVal] = useState("");
 
   const { placeholder, render, label, change,typeData,value} = props;
@@ -28,4 +27,4 @@ const FormData = (props) => {
   );
 };
 
-export default FormData;
+export default FormComponent;

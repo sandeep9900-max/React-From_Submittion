@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { notification } from "antd";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
-import FormData from "../../utilities/form/FormData";
-import ButtonData from "../../utilities/ButtonData/ButtonData";
+import FormComponent from "../../utilities/form/FormComponent";
+import ButtonComponent from "../../utilities/ButtonData/ButtonComponent";
 
 const ContactForm = (props) => {
   const [state, setState] = useState({
@@ -87,7 +87,7 @@ const ContactForm = (props) => {
     >
       <h2 style={{ textDecoration: "underline" }}>Contact From</h2>
       <div>
-        <FormData
+        <FormComponent
           label={"Phone_no:"}
           placeholder={"Phone_no"}
           value={phoneNumber}
@@ -96,7 +96,7 @@ const ContactForm = (props) => {
         {phoneNumberError === true ? (
           <div style={{color: 'red'}} >* phoneNumber should be minimum 10 characters.</div>
         ) : null}
-        <FormData
+        <FormComponent
           label={"Email:"}
           placeholder={"Email"}
           value={email}
@@ -107,12 +107,12 @@ const ContactForm = (props) => {
         ) : null}
       </div>
       <div style={{ marginTop: "12px" }}>
-        <ButtonData
+        <ButtonComponent
           value={"next"}
           submit={nextRender}
           icon={<ArrowRightOutlined />}
         />
-        <ButtonData
+        <ButtonComponent
           submit={prevRender}
           value={"previous"}
           icon={<ArrowLeftOutlined />}
